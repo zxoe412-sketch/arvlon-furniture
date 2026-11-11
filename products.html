@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معرض المنتجات | ARVLON Furniture</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="brand-logo">
+            <span class="arabic-text">أرفلون</span>
+            <span class="english-text">ARVLON</span>
+        </div>
+        <nav class="nav-links" id="navLinks">
+            <a href="index.html" data-i18n="nav_home">الرئيسية</a>
+            <a href="products.html" class="active" data-i18n="nav_products">الأثاث والمنتجات</a>
+            <a href="about.html" data-i18n="nav_about">من نحن</a>
+            <a href="contact.html" data-i18n="nav_contact">تواصل معنا</a>
+        </nav>
+        <div class="nav-actions">
+            <button class="btn-lang" id="langToggleBtn" onclick="toggleLanguage()">English</button>
+            <div class="mobile-toggle" id="mobileMenuToggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </header>
+
+    <section class="section" style="margin-top: 70px;">
+        <div class="section-title">
+            <h2 data-i18n="nav_products">الأثاث والمنتجات</h2>
+        </div>
+
+        <!-- Filter Category Buttons -->
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterProducts('all')" data-i18n="filter_all">الكل</button>
+            <button class="filter-btn" onclick="filterProducts('bedroom')" data-i18n="filter_bedroom">غرف النوم</button>
+            <button class="filter-btn" onclick="filterProducts('living')" data-i18n="filter_living">غرف المعيشة</button>
+            <button class="filter-btn" onclick="filterProducts('majlis')" data-i18n="filter_majlis">الكنب والمجالس</button>
+            <button class="filter-btn" onclick="filterProducts('dining')" data-i18n="filter_dining">طاولات الطعام</button>
+            <button class="filter-btn" onclick="filterProducts('kids')" data-i18n="filter_kids">غرف الأطفال</button>
+            <button class="filter-btn" onclick="filterProducts('office')" data-i18n="filter_office">المكاتب</button>
+        </div>
+
+        <div class="products-grid" id="productsGrid"></div>
+    </section>
+
+    <!-- Footer & Floating Elements -->
+    <footer>
+        <div class="footer-bottom">
+            <p data-i18n="rights_reserved">جميع الحقوق محفوظة © 2026 أرفلون للأثاث (ARVLON Furniture)</p>
+        </div>
+    </footer>
+
+    <div class="floating-container">
+        <a href="javascript:void(0)" onclick="window.open(getWhatsAppLink(), '_blank')" class="float-btn float-whatsapp"><i class="fab fa-whatsapp"></i></a>
+        <a href="tel:+967777487666" class="float-btn float-call"><i class="fas fa-phone"></i></a>
+    </div>
+
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModalBtn">&times;</span>
+            <div class="modal-body" id="modalDetailsBody"></div>
+        </div>
+    </div>
+
+    <script src="js/products.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        let currentCategory = 'all';
+
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            
+            const lang = localStorage.getItem('arvlon_lang') || 'ar';
+
+            const filtered = currentCategory === 'all' 
+                ? productsData 
+                : productsData.filter(p => p.category === currentCategory);
+
+            filtered.forEach(p => {
+                const title = lang === 'ar' ? p.title_ar : p.title_en;
+                const price = lang === 'ar' ? p.price_yr : p.price_en;
+                const waLink = getWhatsAppLink(title);
+
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div class="product-image">
+                        <img src="${p.image}" alt="${title}">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-title">${title}</div>
+                        <div class="product-price">${price}</div>
+                        <div class="product-actions">
+                            <a href="${waLink}" target="_blank" class="btn-whatsapp-inquiry">
+                                <i class="fab fa-whatsapp"></i> ${lang === 'ar' ? 'استفسار' : 'Inquire'}
+                            </a>
+                            <button class="btn-details" onclick="openProductModal(${p.id})">
+                                ${lang === 'ar' ? 'التفاصيل' : 'Details'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterProducts(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderProducts();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const catParam = urlParams.get('cat');
+            if (catParam) {
+                currentCategory = catParam;
+            }
+            renderProducts();
+        });
+    </script>
+</body>
+</html>

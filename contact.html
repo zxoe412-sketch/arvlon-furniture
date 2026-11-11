@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تواصل معنا | ARVLON Furniture</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="brand-logo"><span class="arabic-text">أرفلون</span><span class="english-text">ARVLON</span></div>
+        <nav class="nav-links" id="navLinks">
+            <a href="index.html" data-i18n="nav_home">الرئيسية</a>
+            <a href="products.html" data-i18n="nav_products">الأثاث والمنتجات</a>
+            <a href="about.html" data-i18n="nav_about">من نحن</a>
+            <a href="contact.html" class="active" data-i18n="nav_contact">تواصل معنا</a>
+        </nav>
+        <div class="nav-actions">
+            <button class="btn-lang" id="langToggleBtn" onclick="toggleLanguage()">English</button>
+            <div class="mobile-toggle" id="mobileMenuToggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </header>
+
+    <section class="section" style="margin-top: 70px;">
+        <div class="section-title">
+            <h2 data-i18n="contact_title">معلومات التواصل والعنوان</h2>
+        </div>
+        
+        <div style="max-width: 800px; margin: 0 auto; background: #fff; padding: 40px; border-radius: 8px; box-shadow: var(--shadow-sm);">
+            <div style="margin-bottom: 25px; display: flex; align-items: center; gap: 15px;">
+                <i class="fas fa-map-marker-alt" style="font-size: 1.8rem; color: var(--primary-color);"></i>
+                <div>
+                    <h4 style="font-size: 1.2rem;">العنوان:</h4>
+                    <p style="color: #666;" data-i18n="address_text">شارع الأربعين، أمام سور الرئاسة، اليمن.</p>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 25px; display: flex; align-items: center; gap: 15px;">
+                <i class="fas fa-phone-alt" style="font-size: 1.8rem; color: var(--primary-color);"></i>
+                <div>
+                    <h4 style="font-size: 1.2rem;">الهاتف / واتساب:</h4>
+                    <p style="color: #666;">+967 777 487 666</p>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 25px; display: flex; align-items: center; gap: 15px;">
+                <i class="fab fa-instagram" style="font-size: 1.8rem; color: var(--primary-color);"></i>
+                <div>
+                    <h4 style="font-size: 1.2rem;">وسائل التواصل الاجتماعي:</h4>
+                    <p style="color: #666;">Facebook & Instagram: <strong>Arvlon Furniture</strong></p>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px; text-align: center;">
+                <a href="javascript:void(0)" onclick="window.open(getWhatsAppLink(), '_blank')" class="btn-gold" style="display: inline-flex; align-items: center; gap: 10px;">
+                    <i class="fab fa-whatsapp"></i> تواصل مباشر عبر واتساب
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-bottom">
+            <p data-i18n="rights_reserved">جميع الحقوق محفوظة © 2026 أرفلون للأثاث (ARVLON Furniture)</p>
+        </div>
+    </footer>
+
+    <script src="js/products.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
